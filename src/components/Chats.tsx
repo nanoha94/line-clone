@@ -3,7 +3,15 @@ import styled from "@emotion/styled";
 import { Message } from "../types/Message";
 import Chat from "./Chat";
 import { List } from "@mui/material";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../firebase";
 
 const Container = styled(List)`
@@ -15,15 +23,15 @@ const Chats = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const listRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    if (listRef.current) {
-      const { scrollHeight, scrollTop } = listRef.current;
-      if (scrollHeight !== scrollTop) {
-        listRef.current.scrollTop = scrollHeight;
-      }
-      console.log(scrollHeight, scrollTop);
-    }
-  });
+  //   useEffect(() => {
+  //     if (listRef.current) {
+  //       const { scrollHeight, scrollTop } = listRef.current;
+  //       if (scrollHeight !== scrollTop) {
+  //         listRef.current.scrollTop = scrollHeight;
+  //       }
+  //       console.log(scrollHeight, scrollTop);
+  //     }
+  //   });
 
   useEffect(() => {
     const get_messages = async () => {
@@ -47,7 +55,26 @@ const Chats = () => {
       setMessages(dbMessages);
     };
 
+    const unsub = onSnapshot(
+      query(collection(db, "messages"), orderBy("created_at"), limit(50)),
+      (snapshot) => {
+        const dbMessages: Message[] = [];
+        snapshot.docs.map((doc) => {
+          dbMessages.push({
+            id: doc.data().id,
+            text: doc.data().text,
+            uid: doc.data().uid,
+            username: doc.data().username,
+            photoURL: doc.data().photoURL,
+            created_at: doc.data().created_at,
+          });
+        });
+        setMessages(dbMessages);
+      }
+    );
     get_messages();
+
+    return () => unsub();
   }, []);
 
   return (
