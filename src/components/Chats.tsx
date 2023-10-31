@@ -5,7 +5,6 @@ import Chat from "./Chat";
 import { List } from "@mui/material";
 import {
   collection,
-  doc,
   getDocs,
   limit,
   onSnapshot,
@@ -15,6 +14,8 @@ import {
 import { db } from "../firebase";
 
 const Container = styled(List)`
+  max-height: calc(100% - 64px - 93px);
+  overflow: auto;
   padding: 64px 20px 93px 20px;
   background-color: #bbdefb;
 `;
@@ -23,15 +24,11 @@ const Chats = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const listRef = useRef<HTMLUListElement>(null);
 
-  //   useEffect(() => {
-  //     if (listRef.current) {
-  //       const { scrollHeight, scrollTop } = listRef.current;
-  //       if (scrollHeight !== scrollTop) {
-  //         listRef.current.scrollTop = scrollHeight;
-  //       }
-  //       console.log(scrollHeight, scrollTop);
-  //     }
-  //   });
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollIntoView(false);
+    }
+  }, [messages]);
 
   useEffect(() => {
     const get_messages = async () => {
