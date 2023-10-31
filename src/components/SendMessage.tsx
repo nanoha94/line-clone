@@ -6,11 +6,19 @@ import { Message } from "../types/Message";
 import SendIcon from "@mui/icons-material/Send";
 import styled from "@emotion/styled";
 
+const Form = styled.form`
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 40px);
+  padding: 20px;
+  background-color: #fff;
+`;
+
 const InputArea = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
 const SendMessage = () => {
   const [message, setMessage] = useState<string>("");
@@ -43,7 +51,7 @@ const SendMessage = () => {
 
   return (
     <>
-      <form onSubmit={sendMessage}>
+      <Form onSubmit={sendMessage}>
         <InputArea>
           <TextField
             style={{
@@ -60,10 +68,10 @@ const SendMessage = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
           <IconButton onClick={sendMessage}>
-            <SendIcon fontSize="large" style={{ color: "#7ac3ff"}} />
+            <SendIcon fontSize="large" style={{ color: "#7ac3ff" }} />
           </IconButton>
         </InputArea>
-      </form>
+      </Form>
     </>
   );
 };

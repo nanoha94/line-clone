@@ -5,7 +5,7 @@ import { auth } from '../firebase';
 const SignOut = () => {
   return (
     <>
-    <Button onClick={() => auth.signOut()}>サインアウト</Button>
+    <Button color="inherit" onClick={() => auth.signOut()}>サインアウト</Button>
     </>
   )
 }
