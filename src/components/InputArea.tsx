@@ -11,16 +11,13 @@ const Form = styled.form`
   bottom: 0;
   width: calc(100% - 40px);
   padding: 20px;
-  background-color: #fff;
-`;
-
-const InputArea = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  background-color: #fff;
 `;
 
-const SendMessage = () => {
+const InputArea = () => {
   const [message, setMessage] = useState<string>("");
 
   const sendMessage = async (e: React.SyntheticEvent) => {
@@ -52,28 +49,26 @@ const SendMessage = () => {
   return (
     <>
       <Form onSubmit={sendMessage}>
-        <InputArea>
-          <TextField
-            style={{
-              width: "100%",
-              fontSize: "15px",
-              fontWeight: "550",
-              marginLeft: "5px",
-              marginBottom: "-3px",
-            }}
-            type="text"
-            placeholder="メッセージを入力してください"
-            variant="outlined"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <IconButton onClick={sendMessage}>
-            <SendIcon fontSize="large" style={{ color: "#7ac3ff" }} />
-          </IconButton>
-        </InputArea>
+        <TextField
+          style={{
+            width: "100%",
+            fontSize: "15px",
+            fontWeight: "550",
+            marginLeft: "5px",
+            marginBottom: "-3px",
+          }}
+          type="text"
+          placeholder="メッセージを入力してください"
+          variant="outlined"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <IconButton onClick={sendMessage}>
+          <SendIcon fontSize="large" style={{ color: "#7ac3ff" }} />
+        </IconButton>
       </Form>
     </>
   );
 };
 
-export default SendMessage;
+export default InputArea;
