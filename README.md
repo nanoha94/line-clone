@@ -1,9 +1,7 @@
 #line-clone  
-LINEクローンアプリ作成中。
+LINE クローンアプリを作成しました。
 
-参照元：https://www.youtube.com/watch?v=Js9BsBsczE8  
-
-
+参照元：https://www.youtube.com/watch?v=Js9BsBsczE8
 
 # React + TypeScript + Vite
 
